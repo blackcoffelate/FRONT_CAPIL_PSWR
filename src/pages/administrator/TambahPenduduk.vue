@@ -98,7 +98,8 @@
                   <q-icon name="person_pin" class="q-pr-md" /> </template></q-input>
               <q-select standout="bg-blue-10 text-white" v-model="form.STATUS_PERNIKAHAN"
                 class="text-white col-4 q-pa-sm text-capitalize" label="Status Pernikahan"
-                :options="options.statuspernikahan" dense lazy-rules :rules="defaultRules" use-input @filter="filterStatusPernikahan">
+                :options="options.statuspernikahan" dense lazy-rules :rules="defaultRules" use-input
+                @filter="filterStatusPernikahan">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -112,7 +113,8 @@
               </q-select>
               <q-select standout="bg-blue-10 text-white" v-model="form.HUBUNGAN_KEPALA_KELUARGA"
                 class="text-white col-4 q-pa-sm text-capitalize" label="Hubungan Keluarga"
-                :options="options.hubungankeluarga" dense lazy-rules :rules="defaultRules" use-input @filter="filterHubunganKeluarga">
+                :options="options.hubungankeluarga" dense lazy-rules :rules="defaultRules" use-input
+                @filter="filterHubunganKeluarga">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -183,7 +185,8 @@
               </q-select>
               <q-select standout="bg-blue-10 text-white" v-model="form.SUMBER_AIR_MINUM"
                 class="text-white col-4 q-pa-sm text-capitalize" label="Sumber Air Minum"
-                :options="options.sumberairminum" dense lazy-rules :rules="defaultRules" use-input @filter="filterSumberAirMinum">
+                :options="options.sumberairminum" dense lazy-rules :rules="defaultRules" use-input
+                @filter="filterSumberAirMinum">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -197,7 +200,8 @@
               </q-select>
               <q-select standout="bg-blue-10 text-white" v-model="form.SUMBER_PENERANGAN"
                 class="text-white col-4 q-pa-sm text-capitalize" label="Sumber Penerangan"
-                :options="options.sumberpenerangan" dense lazy-rules :rules="defaultRules" use-input @filter="filterSumberPenerangan">
+                :options="options.sumberpenerangan" dense lazy-rules :rules="defaultRules" use-input
+                @filter="filterSumberPenerangan">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -211,7 +215,8 @@
               </q-select>
               <q-select standout="bg-blue-10 text-white" v-model="form.BAHAN_BAKAR_MASAK"
                 class="text-white col-4 q-pa-sm text-capitalize" label="Bahan Bakar Masak"
-                :options="options.bahanbakarmasak" dense lazy-rules :rules="defaultRules" use-input @filter="filterBahanBakarMasak">
+                :options="options.bahanbakarmasak" dense lazy-rules :rules="defaultRules" use-input
+                @filter="filterBahanBakarMasak">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -244,8 +249,8 @@
             </div>
             <div class="row items-start">
               <q-select standout="bg-blue-10 text-white" v-model="form.AREA.KECAMATAN" @update:model-value="getDes"
-                class="text-white col-4 q-pa-sm text-capitalize" label="Kecamatan" :options="options.area.kecamatan"
-                option-label="nama" key="nama" dense use-input @filter="filterKec">
+                class="text-white col-4 q-pa-sm text-capitalize" :rules="[areaRule]" label="Kecamatan"
+                :options="options.area.kecamatan" option-label="nama" key="nama" dense use-input @filter="filterKec">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -265,8 +270,9 @@
                   </q-item>
                 </template></q-select>
               <q-select standout="bg-blue-10 text-white" :disable="form.AREA.KECAMATAN === null" v-model="form.AREA.DESA"
-                @update:model-value="getDus" class="text-white col-4 q-pa-sm text-capitalize" label="Desa"
-                :options="options.area.desa" option-label="nama" key="nama" dense use-input @filter="filterDes">
+                @update:model-value="getDus" class="text-white col-4 q-pa-sm text-capitalize" :rules="[areaRule]"
+                label="Desa" :options="options.area.desa" option-label="nama" key="nama" dense use-input
+                @filter="filterDes">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -287,8 +293,8 @@
                   </q-item>
                 </template></q-select>
               <q-select standout="bg-blue-10 text-white" :disable="form.AREA.DESA === null" v-model="form.AREA.DUSUN"
-                class="text-white col-4 q-pa-sm text-capitalize" label="Dusun" :options="options.area.dusun"
-                option-label="nama" key="nama" dense use-input @filter="filterDus">
+                class="text-white col-4 q-pa-sm text-capitalize" :rules="[areaRule]" label="Dusun"
+                :options="options.area.dusun" option-label="nama" key="nama" dense use-input @filter="filterDus">
                 <template v-slot:no-option>
                   <q-item>
                     <q-item-section class="text-grey">
@@ -338,7 +344,7 @@ const sumberairminum = ["Air Kemasan Bermerk", "Air Isi Ulang", "Leding", "Sumur
 const statuspernikahan = ["Belum Kawin", "Kawin / Nikah", "Cerai Hidup", "Cerai Mati"];
 const hubungankeluarga = ["Kepala Keluarga", "Istri / Suami", "Anak", "Cucu", "Orang Tua / Mertua", "Pembantu / Supir", "Menantu", "Lainnya"];
 const penyakit = ["Tidak Ada", "Hypertensi", "Diabetes Melitus", "TBC", "Malaria", "Lainnya"];
-const bantuan = [ 'Tidak Ada', 'BPJS', 'PKH', 'BPNT', 'BLT', 'Lainnya'];
+const bantuan = ['Tidak Ada', 'BPJS', 'PKH', 'BPNT', 'BLT', 'Lainnya'];
 const penghasilan = ["< Rp. 350.000", "Rp. 350.000 < Rp. 420.000", "Rp. 420.000 < Rp. 1.000.000", "Rp 1.000.000 < Rp. 2.440.486", "Rp. 2.440.486 < Rp. 5.000.000", "> Rp. 5.000.000", "Tidak Memiliki penghasilan"];
 
 const model = () => {
@@ -399,16 +405,21 @@ export default {
   data() {
     return {
       defaultRules: [
-        (val) => (val && val.length > 0) || 'Please type something',
+        (val) => (val && val.length > 0) || 'Tidak Boleh Kosong',
       ],
       kkRules: [
-        (val) => (val && val.length > 0) || 'Please type something',
+        (val) => (val && val.length > 0) || 'Tidak Boleh Kosong',
         val => val.length >= 0 && val.length >= 16 || 'Digit NOMOR KK Kurang'
       ],
       nikRules: [
-        (val) => (val && val.length > 0) || 'Please type something',
+        (val) => (val && val.length > 0) || 'Tidak Boleh Kosong',
         val => val.length >= 0 && val.length >= 16 || 'Digit NIK Kurang'
       ],
+      areaRule(val) {
+        if (val === null) {
+          return 'Harap Pilih Terlebih dahulu'
+        }
+      },
       form: model(),
       formPenyakit: modelPenyakit(),
       formBantuan: modelBantuan(),
@@ -435,6 +446,9 @@ export default {
     };
   },
   created() {
+    // console.log(this.form)
+    // console.log(this.formPenyakit)
+    // console.log(this.formBantuan)
     this.getKec();
   },
   methods: {
@@ -620,6 +634,10 @@ export default {
       });
     },
     onSubmit() {
+      // console.log(this.form.area)
+      // console.log(this.form)
+      // console.log(this.formPenyakit)
+      // console.log(this.formBantuan)
       this.onCreate();
     },
     resetField() {
@@ -634,14 +652,12 @@ export default {
         .post(
           "createAllData/create",
           this.form,
-          this.formPenyakit,
-          this.formBantuan
         )
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            this.resetField()
+            // this.resetField()
           }
         })
         .catch((err) => {
