@@ -657,7 +657,7 @@ export default {
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            // this.resetField()
+            this.resetField()
           }
         })
         .catch((err) => {
