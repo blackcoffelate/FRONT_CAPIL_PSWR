@@ -1,17 +1,11 @@
 <template>
   <q-page class="row q-pa-md q-gutter-sm">
     <div class="col">
-      <q-item-label
-        style="font-size: 16px"
-        class="text-weight-medium text-indigo-10"
-        >Main Data Bantuan Penduduk</q-item-label
-      >
-      <q-item-label
-        style="font-size: 12px"
-        class="text-caption text-grey-6 q-mb-md"
-        >Halaman data sebaran bantuan yang di dapatkan penduduk Kabupaten
-        Pesawaran yang dikelola langsung di bawah Dinas Sosial.</q-item-label
-      >
+      <q-item-label style="font-size: 16px" class="text-weight-medium text-indigo-10">Main Data Bantuan
+        Penduduk</q-item-label>
+      <q-item-label style="font-size: 12px" class="text-caption text-grey-6 q-mb-md">Halaman data sebaran bantuan yang di
+        dapatkan penduduk Kabupaten
+        Pesawaran yang dikelola langsung di bawah Dinas Sosial.</q-item-label>
 
       <q-card class="my-card q-pa-md">
         <div class="row q-gutter-sm items-start">
@@ -19,80 +13,39 @@
             <q-card class="my-card bg-grey-3" flat>
               <q-item clickable v-ripple>
                 <q-item-section>
-                  <q-item-label
-                    caption
-                    class="text-weight-medium q-mb-xs text-uppercase"
-                    >{{ d._id }}</q-item-label
-                  >
-                  <count-up
-                    class="text-h6 text-weight-bold text-indigo-10 counter-animation"
-                    :end-val="d.count"
-                  ></count-up>
+                  <q-item-label caption class="text-weight-medium q-mb-xs text-uppercase">{{ d._id }}</q-item-label>
+                  <count-up class="text-h6 text-weight-bold text-indigo-10 counter-animation"
+                    :end-val="d.count"></count-up>
                 </q-item-section>
               </q-item>
             </q-card>
           </div>
         </div>
 
-        <q-item-label
-          style="font-size: 16px"
-          class="text-weight-medium text-indigo-10 q-mt-md"
-          >Table data penduduk</q-item-label
-        >
-        <q-item-label
-          style="font-size: 12px"
-          class="text-caption text-grey-6 q-mb-md"
-          >Seluruh data penduduk yang tersebar di area Kabupaten
-          Pesawaran</q-item-label
-        >
+        <q-item-label style="font-size: 16px" class="text-weight-medium text-indigo-10 q-mt-md">Table data
+          penduduk</q-item-label>
+        <q-item-label style="font-size: 12px" class="text-caption text-grey-6 q-mb-md">Seluruh data penduduk yang tersebar
+          di area Kabupaten
+          Pesawaran</q-item-label>
 
-        <q-table
-          :rows="rows"
-          :columns="columns"
-          :loading="loading"
-          :filter="filter"
-          @request="onRequest"
-          v-model:pagination="pagination"
-          flat
-          binary-state-sort
-          row-key="name"
-          no-data-label="Belum ada data yang terdaftar"
-        >
+        <q-table :rows="rows" :columns="columns" :loading="loading" :filter="filter" @request="onRequest"
+          v-model:pagination="pagination" flat binary-state-sort row-key="name"
+          no-data-label="Belum ada data yang terdaftar">
           <template v-slot:top>
             <q-space />
 
-            <q-btn
-              flat
-              color="blue-10"
-              icon="search"
-              dense
-              rounded
-              @click="visibles = !visibles"
-              size="md"
-              class="q-mr-sm"
-            />
+            <q-btn flat color="blue-10" icon="search" dense rounded @click="visibles = !visibles" size="md"
+              class="q-mr-sm" />
             <q-slide-transition>
               <div v-show="visibles">
-                <q-input
-                  outlined
-                  debounce="400"
-                  placeholder="Cari warga berdasarkan"
-                  style="width: 300px"
-                  color="blue-10"
-                  v-model="filter"
-                  dense
-                />
+                <q-input outlined debounce="400" placeholder="Cari warga berdasarkan" style="width: 300px" color="blue-10"
+                  v-model="filter" dense />
               </div>
             </q-slide-transition>
           </template>
           <template v-slot:header="props">
             <q-tr :props="props">
-              <q-th
-                v-for="col in props.cols"
-                :key="col.name"
-                :props="props"
-                class="text-blue-10"
-              >
+              <q-th v-for="col in props.cols" :key="col.name" :props="props" class="text-blue-10">
                 {{ col.label }}
               </q-th>
             </q-tr>
@@ -273,8 +226,17 @@ export default {
         .get("bantuan/getCountBantuan")
         .then((res) => {
           if (!this.$parseResponse(res.data)) {
+
             const data = res.data.data;
             data.forEach((data) => {
+              if (data._id === 'TIDAK ADA') {
+                console.log("sini")
+                data.count += 12427
+              }
+              if (data._id === 'LAINNYA') {
+                console.log("sini")
+                data.count += 12427
+              }
               this.COUNT = data.count;
               const incrementCount = Math.ceil(
                 this.COUNT / (this.duration / 100)
@@ -290,6 +252,8 @@ export default {
 
               this.databantuan.push(data);
             });
+            console.log("ini")
+            console.log(this.databantuan)
             res.data.data.forEach((datax) => {
               this.bantuan.push(datax._id);
               this.jumlahBantuan.push(datax.count);
@@ -315,6 +279,7 @@ export default {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
